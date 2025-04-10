@@ -26,5 +26,4 @@ public class CartItem {
     private int count;
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
-
 }
