@@ -18,4 +18,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     // 상품 상세 설명 조회 + 가격 내림차순 정렬
     @Query("select i from Item i where i.itemDetail like " + "%:itemDetail% order by i.price desc")
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
+
+    // 상품명으로 상품 조회하는 쿼리 메서드
+    // IgnorCase: 대소문자 구분하지 않음을 나타냄
+    List<Item> findByItemNameContainingIgnoreCase(String itemName);
 }

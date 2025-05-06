@@ -32,6 +32,9 @@ public class Member extends BaseTime{
     private LocalDateTime createdBy;
     private LocalDateTime modifiedBy;
 
+    private String itemImg;
+    private String itemImgPath;
+
     public static Member createMember(MemberFormDto memberFormDto) {
         Member member = new Member();
         member.setName(memberFormDto.getName()); // 이름
