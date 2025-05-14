@@ -33,4 +33,16 @@ public class Item {
 
     private String itemImg;
     private String itemImgPath;
+
+    public void removeStock(int stock) {
+        int restStock = this.stock - stock;
+        if(restStock < 0) {
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량:"+this.stock+")");
+        }
+        this.stock = restStock;
+    }
+
+    public void addStock(int stock) {
+        this.stock += stock;
+    }
 }
