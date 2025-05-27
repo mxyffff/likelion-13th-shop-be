@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -29,17 +33,23 @@ public class Member extends BaseTime{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private LocalDateTime createdBy;
-    private LocalDateTime modifiedBy;
+    @CreatedBy
+    private String createdBy;
+    @LastModifiedBy
+    private String modifiedBy;
 
     private String itemImg;
     private String itemImgPath;
 
-    public static Member createMember(MemberFormDto memberFormDto) {
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
         member.setName(memberFormDto.getName()); // 이름
         member.setEmail(memberFormDto.getEmail()); // 이메일
-        member.setPassword(memberFormDto.getPassword()); // 비밀번호
+
+        String pwd = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(pwd); // 비밀번호
+
+        member.setRole(Role.USER);
         member.setAddress(memberFormDto.getAddress()); // 주소
 
         return member;
